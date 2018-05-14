@@ -1,5 +1,7 @@
 package gameOfLife;
 
+//This class remembers the game state and implements the dynamics of the game.  It uses the Observer pattern to draw the game state in its observers. 
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,9 +15,9 @@ public class GameOfLifePanel extends JPanel {
 
 	private boolean[][] grid;
 	private int squaresize;
-	
+
 	public GameOfLifePanel(int numbrows, int numbcols, int squaresize) {
-		
+
 		// init grid
 		grid = new boolean[numbcols][numbrows];
 		for (int i=0; i<numbcols; i++)
@@ -26,10 +28,10 @@ public class GameOfLifePanel extends JPanel {
 		initGlider();
 		initSmallExploder();
 		initTumbler();
-		
+
 		this.squaresize = squaresize;
 		setPreferredSize(new Dimension(numbcols*squaresize,numbrows*squaresize));
-		
+
 		this.addMouseListener(new MouseListener() {
 			public void mouseReleased(MouseEvent e) {}
 			public void mousePressed(MouseEvent e) {}
@@ -55,13 +57,13 @@ public class GameOfLifePanel extends JPanel {
 
 	private void advance() {
 		boolean[][] newgrid = new boolean[grid.length][grid[0].length];
-		
+
 		for (int i=0; i<grid.length; i++)
 			for (int j=0; j<grid[0].length; j++)
 				newgrid[i][j] = false;
-		
+
 		for (int i=0; i<grid.length; i++)
-			for (int j=0; j<grid[0].length; j++) 
+			for (int j=0; j<grid[0].length; j++)
 				if ((grid[i][j]) && (nbrOfNeighbors(i,j) < 2))
 					newgrid[i][j] = false;
 				else if ((grid[i][j]) && (2 <= nbrOfNeighbors(i,j)) && (nbrOfNeighbors(i,j) <= 3))
@@ -70,7 +72,7 @@ public class GameOfLifePanel extends JPanel {
 					newgrid[i][j] = false;
 				else if ((!grid[i][j]) && (nbrOfNeighbors(i,j) == 3))
 					newgrid[i][j] = true;
-		
+
 		grid = newgrid;
 	}
 
@@ -104,7 +106,7 @@ public class GameOfLifePanel extends JPanel {
 		grid[21][22] = true;
 		grid[20][22] = true;
 	}
-	
+
 	private void initTumbler() {
 		grid[30][23] = true;
 		grid[30][24] = true;
@@ -129,18 +131,18 @@ public class GameOfLifePanel extends JPanel {
 		grid[36][24] = true;
 		grid[36][25] = true;
 	}
-	
+
 	public void paintComponent(Graphics g) {
 		Graphics2D g2 = (Graphics2D)g;
-		
+
 		//draw background
 		drawgrid(g2);
-		
+
 		//draw alive cells
 		g2.setColor(Color.YELLOW);
 		for (int i=0; i<grid.length; i++)
-			for (int j=0; j<grid[0].length; j++) 
-				if (grid[i][j]) 
+			for (int j=0; j<grid[0].length; j++)
+				if (grid[i][j])
 					g2.fill(new Rectangle2D.Double(i*squaresize+1,j*squaresize+1,squaresize-1,squaresize-1));
 	}
 
@@ -155,6 +157,5 @@ public class GameOfLifePanel extends JPanel {
 		for (int i=0;i<=grid[0].length;i++)
 			g2.drawLine(0,i*squaresize,grid.length*squaresize,i*squaresize);
 	}
-		
-}
 
+}

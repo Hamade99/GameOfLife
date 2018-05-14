@@ -1,5 +1,7 @@
 package gameOfLife;
 
+//This class represents the application window and controls the stepwise progression of the game.  It supplies the user with a pause button to stop and restart the game progression. 
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -11,27 +13,27 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 public class GameOfLifeApp extends JFrame {
-	
+
 	private GameOfLifePanel panel;
 	private JPanel control;
 	private boolean paused = false;
 
 	public GameOfLifeApp(String title, int numbrows, int numbcols, int squaresize) {
-		
+
 		// init window
 		super(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
-		
+
 		// set window location to center of screen
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int left = (screenSize.width - numbcols*squaresize)/ 2;
 		int top  = (screenSize.height - numbrows*squaresize)/ 2;
 		setLocation(left, top);
-		
-		panel = new GameOfLifePanel(numbrows, numbcols, squaresize);	
+
+		panel = new GameOfLifePanel(numbrows, numbcols, squaresize);
 		add(panel, BorderLayout.CENTER);
-		
+
 		control = new JPanel();
 		final JToggleButton pauseButton = new javax.swing.JToggleButton("Pause");
 		pauseButton.addMouseListener(new MouseListener() {
@@ -50,7 +52,7 @@ public class GameOfLifeApp extends JFrame {
 			});
 		control.add(pauseButton);
 		add(control, BorderLayout.NORTH);
-		
+
 		pack();
 		this.setVisible(true);
 	}
@@ -71,12 +73,12 @@ public class GameOfLifeApp extends JFrame {
 
 
 	public static void main(String[] args) {
-		
+
 		int width = 50;
 		int height = 40;
 		int squaresize = 10;
 		int delay = 100;
-		
+
 		//Parameters
 		try {
 			for (int tmp = 0 ; tmp < args.length ; tmp++) {
@@ -95,7 +97,7 @@ public class GameOfLifeApp extends JFrame {
 			if ((39 >= height) || (height >= 501)) throw new Exception();
 			if ((1 >= squaresize) || (Math.max(width,height)*squaresize >= 1001)) throw new Exception();
 			if (49 >= delay) throw new Exception();
-		}	
+		}
 		catch(Exception e) {
 			//e.printStackTrace();
 			System.err.println("");
@@ -110,11 +112,11 @@ public class GameOfLifeApp extends JFrame {
 			System.err.println("");
 			System.exit(-1);
 		}
-		
+
 		GameOfLifeApp gol = new GameOfLifeApp("Game of Life", height, width, squaresize);
 		gol.runGoL(delay);
 	}
 
-	
-		
+
+
 }
