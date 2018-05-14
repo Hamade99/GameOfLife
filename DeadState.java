@@ -1,3 +1,3 @@
-public class DeadState implements DeadState {
+public class DeadState implements CellState{
   
 }
