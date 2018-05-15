@@ -6,5 +6,17 @@ However, it is a part of this design to illustrate the use of the State pattern 
 */
 
 public class Cell {
+  private CellState state;
 
+  public void setState(boolean newState) {
+    if(newState) {
+      state = new AliveState();
+    } else {
+      state = new DeadState();
+    }
+  }
+
+  public boolean getState() {
+    return state.getState();
+  }
 }
