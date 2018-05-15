@@ -1,6 +1,6 @@
 package gameOfLife;
 
-//This class represents the application window and controls the stepwise progression of the game.  It supplies the user with a pause button to stop and restart the game progression. 
+//This class represents the application window and controls the stepwise progression of the game.  It supplies the user with a pause button to stop and restart the game progression.
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -69,6 +69,11 @@ public class GameOfLifeApp extends JFrame {
 			catch (Exception e) {}
 			if (!paused) panel.tick();
 		}
+	}
+
+	public void tick() {
+		this.advance();
+		this.repaint();
 	}
 
 
